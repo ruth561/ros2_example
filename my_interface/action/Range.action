@@ -4,7 +4,7 @@ uint64 end
 ---
 # Result
 bool find
-uint64 result
+uint64 value
 ---
 # FeedBack
 uint64 finished
