@@ -12,7 +12,7 @@ using my_interface::action::Range;
 
 class Sample1Server : public rclcpp::Node {
 public:
-    Sample1Server() : Node("server") {
+    Sample1Server() : Node("sample1_server") {
 
         /* Goalのコールバック */
         auto goal_cb = [this](
@@ -64,7 +64,8 @@ private:
 
         auto result = std::make_shared<Range::Result>();
         
-        /* 色々処理を行う。*/
+        /* 色々処理を行う。時間がかかるような処理で、
+        途中経過をFeedbackで送信するようにする。*/
         auto feedback = std::make_shared<Range::Feedback>();
         for (uint64_t i = goal->begin; i < goal->end; i++) {
             if (i % 10000000 == 0) {
@@ -74,6 +75,7 @@ private:
             }
         }
 
+        /* Resultの送信 */
         result->find = true;
         result->value = (goal->begin + goal->end) / 2;
         goal_handle->succeed(result);

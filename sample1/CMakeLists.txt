@@ -12,14 +12,14 @@ find_package(rclcpp_action REQUIRED)
 find_package(my_interface REQUIRED)
 
 # 実行可能ファイルを指定
-# add_executable(node src/node.cpp)
-# ament_target_dependencies(node rclcpp my_interface) 
+add_executable(client src/client.cpp)
+ament_target_dependencies(client rclcpp rclcpp_action my_interface) 
 
 add_executable(server src/server.cpp)
 ament_target_dependencies(server rclcpp rclcpp_action my_interface) 
 
 install(TARGETS
-    # node
+    client
     server
     DESTINATION lib/${PROJECT_NAME})
 
