@@ -7,10 +7,7 @@ using namespace std::chrono_literals;
 
 class ChatNode : public rclcpp::Node {
 public:
-    ChatNode() : Node("ChatNode") {
-        std::cout << "put your name > ";
-        std::cin >> name_;
-
+    ChatNode(std::string name) : Node(name), name_(name) {
         /* Publisherの作成*/
         pub_ = this->create_publisher<my_interface::msg::ChatMsg>("chat_topic", 1);
         
@@ -46,7 +43,10 @@ private:
 
 int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<ChatNode>();
+    std::string name;
+    std::cout << "put your name > ";
+    std::cin >> name;
+    auto node = std::make_shared<ChatNode>(name);
     std::thread([&]() {
         node->run();        
     }).detach();
