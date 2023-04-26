@@ -1,0 +1,10 @@
+# Goal
+uint64 begin
+uint64 end
+---
+# Result
+bool find
+uint64 result
+---
+# FeedBack
+uint64 finished
